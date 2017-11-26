@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::post('/login', 'AuthController@authenticate');
+
+Route::get('obtenernoticias', 'NoticiaController@obtenerNoticias');
+
 Route::group(['middleware' => ['jwt.auth']], function () {
 
 	Route::apiResource('noticia', 'NoticiaController');
@@ -23,7 +27,6 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
 	Route::post('noticiausuario', 'UsuarioController@obtenerNoticiaUsuario');
 
+	Route::post('noticiausuario', 'UsuarioController@obteneridUsuario');
+
 });
-
-
-Route::post('login', 'AuthController@authenticate');

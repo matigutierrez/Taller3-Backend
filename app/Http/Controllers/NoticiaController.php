@@ -87,4 +87,19 @@ class NoticiaController extends Controller
         Noticia::destroy($id);
         return['deleted' => true];
     }
+
+    public function obtenerNoticias()
+    {
+        try {
+
+            $datos = Noticia::with('usuario', 'categoria')->get();
+            return \Response::json($datos, 200);
+
+        }catch(\Exception $e) {
+
+            \Log::info('Error no se encontro las Noticias'. $e);
+            return \Response::json('Error'.$e ,500); 
+
+        }
+    }
 }

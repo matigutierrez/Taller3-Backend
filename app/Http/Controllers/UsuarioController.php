@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Usuario;
 
+use DB;
+
 class UsuarioController extends Controller
 {
     /**
@@ -93,6 +95,25 @@ class UsuarioController extends Controller
         try {
 
             $datos = Usuario::with('noticias')->where('email', $request['email'])->first();
+            return \Response::json($datos, 200);
+
+        }catch(\Exception $e) {
+
+            \Log::info('Error no se encontro las Noticias'. $e);
+            return \Response::json('Error'.$e ,500); 
+
+        }
+    }
+
+    public function obteneridUsuario(Request $request)
+    {
+        try {
+
+            $datos = DB::table('users')
+                     ->select('id','nombre')
+                     ->where('email', $request['email'])
+                     ->get();
+
             return \Response::json($datos, 200);
 
         }catch(\Exception $e) {
