@@ -19,7 +19,7 @@ class CreateNoticiaTable extends Migration
             $table->string('entrada');
             $table->string('cuerpo');
             $table->string('imagen');
-            $table->date('fecha');
+            $table->string('fecha');
             $table->integer('usuario_id')->unsigned();
             $table->integer('categoria_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('usuario')->onDelete('cascade')->onUpdate('cascade');

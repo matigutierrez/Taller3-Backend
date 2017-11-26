@@ -19,6 +19,10 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
 	Route::apiResource('categoria', 'CategoriaController');
 
+	Route::apiResource('usuario', 'UsuarioController');
+
+	Route::post('noticiausuario', 'UsuarioController@obtenerNoticiaUsuario');
+
 });
 
 

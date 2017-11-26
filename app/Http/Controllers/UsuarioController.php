@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Noticia;
+use App\Usuario;
 
-class NoticiaController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class NoticiaController extends Controller
      */
     public function index()
     {
-        return Noticia::all();
+        return Usuario::all();
     }
 
     /**
@@ -36,7 +36,7 @@ class NoticiaController extends Controller
      */
     public function store(Request $request)
     {
-        Noticia::create($request->all());
+        Usuario::create($request->all);
         return ['created' => true];
     }
 
@@ -48,7 +48,7 @@ class NoticiaController extends Controller
      */
     public function show($id)
     {
-        return Noticia::find($id);
+        return Usuario::find($id);
     }
 
     /**
@@ -71,8 +71,8 @@ class NoticiaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $noticia = Noticia::find($id);
-        $noticia->update($request->all());
+        $usuario = Usuario::find($id);
+        $usuario->update($request->all());
         return ['update' => true];
     }
 
@@ -84,7 +84,22 @@ class NoticiaController extends Controller
      */
     public function destroy($id)
     {
-        Noticia::destroy($id);
+        Usuario::destroy($id);
         return['deleted' => true];
+    }
+
+    public function obtenerNoticiaUsuario(Request $request)
+    {
+        try {
+
+            $datos = Usuario::with('noticias')->where('email', $request['email'])->first();
+            return \Response::json($datos, 200);
+
+        }catch(\Exception $e) {
+
+            \Log::info('Error no se encontro las Noticias'. $e);
+            return \Response::json('Error'.$e ,500); 
+
+        }
     }
 }
